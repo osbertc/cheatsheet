@@ -92,6 +92,15 @@ df.date_col = pd.to_datetime(df.date_col,format="%Y%m%d")
 df.idxmax(0) #Get the row label of the maximum value in Pandas series
 ```
 
+
+### select row between two non-indexed datetime
+```python
+start_time = '2019-01-01'
+end_time = '2020-01-01'
+
+df[(df['DateTime'] > start_time) & (df['DateTime'] <= end_time)]
+```
+
 ### date offset alias   
 - https://pandas.pydata.org/pandas-docs/version/0.9.1/timeseries.html
 - some example:
