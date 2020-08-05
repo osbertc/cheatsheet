@@ -76,23 +76,7 @@ ETL - transform outside warehouse
         Imagine that we're running a hotel booking website, and want to create a summarization of daily bookings according to a few dimensions. In this case, we want to look at dimensions like country, as well as the platform on which the booking was made.
         transform 'booking' and 'countries_code' into 'bookings_daily' table
 
-
-Source table bookings and countries_code
-
-TABLE **bookings** 
-- id INT [pk]
-- email VARCHAR
-- **country_code** VARCHAR
-- **platform** VARCHAR
-- user_id INT
-- listing_id INT
-- **created_at** TIMESTAMP
-
-
-TABLE **countries_code**     
-- **country_code** VARCHAR [pk]
-- **country_name** VARCHAR
-
+![figure 1][1]
 
 ```sql
 -- Transform: Summarize bookings by country and platform
@@ -124,12 +108,12 @@ To deploy the above SQL code to production, we set up a daily cron job that runs
 
 
 #### multi-step Transformation - Directed Acyclic Graph Workflow
-- dependency + specific order
-- From source table A, B >> Transform table D, E
-- From transform table D, E + source table C >> Further Tranform table F, G
+- dependency + specific order  
+![directed_acyclic_graph.png][2]  
 
 
 ### Incremental Transform in aciton
+![incremental_transform.png][3]  
 ```sql
 -- Example
 destination: bookings_daily --result table
@@ -150,6 +134,8 @@ GROUP BY 1
 
 
 ---
-
+[1]:db_warehouse_img/bookings_daily_transform.png
+[2]:db_warehouse_img/directed_acyclic_graph.png
+[3]:db_warehouse_img/incremental_transform.png
 
 https://towardsdatascience.com/announcing-pycaret-2-0-39c11014540e
