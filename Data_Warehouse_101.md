@@ -59,8 +59,8 @@ Parallelization of query executions: Modern analytical databases are typically r
 ## Aware of different between ELT vs ETL
 ELT - transform inside warehouse  
 ETL - transform outside warehouse  
-*Storage Space is **cheap** in the Cloud era!*
-*"dump first, transform later"*
+*Storage Space is **cheap** in the Cloud era!*  
+*"dump first, transform later"*  
 
 ### Host unstructured data - Data Lakes
 - where all data stored before entry data warehouse
@@ -73,7 +73,10 @@ ETL - transform outside warehouse
 
 #### One-step Transformation
         Example:
-        Imagine that we're running a hotel booking website, and want to create a summarization of daily bookings according to a few dimensions. In this case, we want to look at dimensions like country, as well as the platform on which the booking was made.
+        Imagine that we're running a hotel booking website, 
+        and want to create a summarization of daily bookings according to a few dimensions. 
+        In this case, we want to look at dimensions like country, 
+        as well as the platform on which the booking was made.
         transform 'booking' and 'countries_code' into 'bookings_daily' table
 
 ![figure 1][1]
