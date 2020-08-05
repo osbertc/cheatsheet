@@ -1,9 +1,24 @@
-# DB warehouse
+# Data Warehouse
 
-- Most business use cases just need a daily refresh of analytics data.
-- A pipeline that runs after midnight and finishes before people get to work.
+## QUICK Summary
+- There are three different types of source data systems: application data, third-party data and manual data.
+- To store and process data for analytics, you need a thing called data warehouse.
+- The process to move data from source to destination is called Extract & Load.
+- Load data incrementally can help you increase the performance of your EL process.
 
-For instance, if you're a restaurant and want to analyze orders/waitress ratio efficiency (which hour of the week the staff is most busy vs most free), you need to combine your sales data (from POS system) with your staff duty data (from HR system).
+## 1. Three different data source
+   1. Data coming directly out of your main application (application database)
+   2. Data coming from Customer Relationship Management (CRM), Content Management System (CMS), Enterprise Resource Planning (ERP), or marketing systems
+   3. Manual data created by employees and other systems  
+
+
+            Example:
+            For instance, if you're a restaurant and want to analyze orders/waitress ratio efficiency (which hour of the week the staff is most busy vs most free), you need to combine your sales data (from POS system) with your staff duty data (from HR system).
+
+## 3. Load data incrementally
+   - Most business use cases just need a daily refresh of analytics data.
+   - A pipeline that runs after midnight and finishes before people get to work.
+   - How? [Click here](###-Incremental-Transform-in-aciton)
 
 # Four Reasons TO Get A Data Warehouse
 1. You need to analyse data from different sources
@@ -12,7 +27,6 @@ For instance, if you're a restaurant and want to analyze orders/waitress ratio e
 4. To improve the performance of your most-used queries (think: transformed summary tables!) 
 
 # Transactional vs Analytics DBs
-
 Transactional databases  
 optimized for fast, short queries with high concurrent volume  
 
@@ -41,5 +55,101 @@ Columnar storage engine: Instead of storing data row by row on disk, analytical 
 Compression of columnar data: Data within each column is compressed for smaller storage and faster retrieval.
 
 Parallelization of query executions: Modern analytical databases are typically run on top of thousands of machines. Each analytical query can thus be split into multiple smaller queries to be executed in parallel amongst those machines (divide and conquer strategy).
+
+## Aware of different between ELT vs ETL
+ELT - transform inside warehouse  
+ETL - transform outside warehouse  
+*Storage Space is **cheap** in the Cloud era!*
+*"dump first, transform later"*
+
+### Host unstructured data - Data Lakes
+- where all data stored before entry data warehouse
+- upload all manner of unstructured data
+
+### Data Transformation
+1. Data clearning
+2. Aggregate data (transaction counts by diff region and category, and store into a new table)
+3. Pre-processing (calculate a ratio, a trend)
+
+#### One-step Transformation
+        Example:
+        Imagine that we're running a hotel booking website, and want to create a summarization of daily bookings according to a few dimensions. In this case, we want to look at dimensions like country, as well as the platform on which the booking was made.
+        transform 'booking' and 'countries_code' into 'bookings_daily' table
+
+
+Source table bookings and countries_code
+
+TABLE **bookings** 
+- id INT [pk]
+- email VARCHAR
+- **country_code** VARCHAR
+- **platform** VARCHAR
+- user_id INT
+- listing_id INT
+- **created_at** TIMESTAMP
+
+
+TABLE **countries_code**     
+- **country_code** VARCHAR [pk]
+- **country_name** VARCHAR
+
+
+```sql
+-- Transform: Summarize bookings by country and platform
+BEGIN;
+DROP TABLE IF EXISTS bookings_daily;
+CREATE TABLE bookings_daily (
+ date_d date,
+ country_name varchar,
+ platform varchar,
+ total integer
+);
+INSERT INTO bookings_daily (
+ date_d, country_name, platform, total
+)
+SELECT
+ ts::date as date_d,
+ C.country_name,
+ platform,
+ count(*) as total
+FROM bookings B
+LEFT JOIN countries C ON B.country_code = C.country_code
+GROUP BY 1
+COMMIT;
+```
+
+To deploy the above SQL code to production, we set up a daily cron job that runs the SQL file in PostgreSQL:
+
+    $ psql transforms/bookings_daily.sql
+
+
+#### multi-step Transformation - Directed Acyclic Graph Workflow
+- dependency + specific order
+- From source table A, B >> Transform table D, E
+- From transform table D, E + source table C >> Further Tranform table F, G
+
+
+### Incremental Transform in aciton
+```sql
+-- Example
+destination: bookings_daily --result table
+incremental:
+ enabled: true
+ column: date_d -- use column date_d for incremental
+
+SELECT
+ ts::date as date_d,
+ C.country_name,
+ platform,
+ count(*) as total
+FROM bookings B --source table
+LEFT JOIN countries C ON B.country_code = C.country_code
+WHERE [[ ts::date > {{max_value}} ]] --this is added to the code, only pull the latest value. 
+GROUP BY 1
+```
+
+
+---
+
 
 https://towardsdatascience.com/announcing-pycaret-2-0-39c11014540e
