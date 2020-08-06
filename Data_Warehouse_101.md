@@ -140,14 +140,14 @@ GROUP BY 1
 ## Data modelling example
 ![model_example.png][4]  
 
-## Mutli-table query
-![mutli_table_query.png][5]  
+## Multi-table query
+![multi_table_query.png][5]  
 
 ---
 [1]:db_warehouse_img/bookings_daily_transform.png  
 [2]:db_warehouse_img/directed_acyclic_graph.png  
 [3]:db_warehouse_img/incremental_transform.png  
 [4]:db_warehouse_img/model_example.png  
-[5]:db_warehouse_img/mutli_table_query.png  
+[5]:db_warehouse_img/multi_table_query.png  
 
 https://towardsdatascience.com/announcing-pycaret-2-0-39c11014540e
