@@ -148,6 +148,6 @@ GROUP BY 1
 [2]:db_warehouse_img/directed_acyclic_graph.png  
 [3]:db_warehouse_img/incremental_transform.png  
 [4]:db_warehouse_img/model_example.png  
-[4]:db_warehouse_img/mutli_table_query.png  
+[5]:db_warehouse_img/mutli_table_query.png  
 
 https://towardsdatascience.com/announcing-pycaret-2-0-39c11014540e
