@@ -135,10 +135,19 @@ WHERE [[ ts::date > {{max_value}} ]] --this is added to the code, only pull the 
 GROUP BY 1
 ```
 
+*Data analyst map between business logic and data logic*  
+
+## Data modelling example
+![model_example.png][4]  
+
+## Mutli-table query
+![mutli_table_query.png][5]  
 
 ---
-[1]:db_warehouse_img/bookings_daily_transform.png
-[2]:db_warehouse_img/directed_acyclic_graph.png
-[3]:db_warehouse_img/incremental_transform.png
+[1]:db_warehouse_img/bookings_daily_transform.png  
+[2]:db_warehouse_img/directed_acyclic_graph.png  
+[3]:db_warehouse_img/incremental_transform.png  
+[4]:db_warehouse_img/model_example.png  
+[4]:db_warehouse_img/mutli_table_query.png  
 
 https://towardsdatascience.com/announcing-pycaret-2-0-39c11014540e
