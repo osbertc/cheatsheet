@@ -3,18 +3,22 @@
 <!-- TOC -->
 
 - [Pandas cheatsheet](#pandas-cheatsheet)
-    - [quicklink](#quicklink)
-    - [General rules](#general-rules)
-    - [Import data](#import-data)
-    - [Command for dataframe](#command-for-dataframe)
-    - [df.loc and df.iloc](#dfloc-and-dfiloc)
-    - [Datetime function](#datetime-function)
-        - [datetime assign as index](#datetime-assign-as-index)
-        - [date offset alias](#date-offset-alias)
-    - [Commond for column of dataframe](#commond-for-column-of-dataframe)
-    - [df.groupby and calculator](#dfgroupby-and-calculator)
-    - [Lambda function](#lambda-function)
-        - [Example: lambda function that will capitlaize strings](#example-lambda-function-that-will-capitlaize-strings)
+  - [quicklink](#quicklink)
+  - [General rules](#general-rules)
+  - [Import data](#import-data)
+  - [Command for dataframe](#command-for-dataframe)
+  - [df.loc and df.iloc](#dfloc-and-dfiloc)
+  - [Datetime function](#datetime-function)
+    - [datetime assign as index](#datetime-assign-as-index)
+    - [select row between two non-indexed datetime](#select-row-between-two-non-indexed-datetime)
+    - [date offset alias](#date-offset-alias)
+  - [Commond for column of dataframe](#commond-for-column-of-dataframe)
+  - [df.groupby and calculator](#dfgroupby-and-calculator)
+  - [Lambda function](#lambda-function)
+    - [Example: lambda function that will capitlaize strings](#example-lambda-function-that-will-capitlaize-strings)
+- [.isin](#isin)
+  - [The Mojave Desert states](#the-mojave-desert-states)
+  - [Filter for rows in the Mojave Desert states](#filter-for-rows-in-the-mojave-desert-states)
 
 <!-- /TOC -->
 
@@ -121,19 +125,19 @@ df.resample('AS').sum()
 
 | Commond for column of dataframe | Remark |  
 | ---                             | ---    |   
-| df[['col1','col2','col3']]                                                            | printe the column 1, 2 and 3                                              |
-| df.col1.dtype                                                                         | type of data for a particluar column                                      |   
-| df.col1.describe()                                                                    | descriptive statistics of col1                                            |   
-| df['col1'] +-*/ df['col2']                                                            | col1 plus / minus / mutliple / divide by col2                             |  
-| df.col1.value_counts().count()                                                        | count the number of distinct values of col1                               |   
-| df.sort_values(by=['col1', 'col2'], ascending = False)                                | sorting 1st by col1, then 2nd by col2, decsending                         |    
-| df[df.col1 > number]  <br> eg. euro12[euro12.Goals > 6]                               | filter rows based on col1 values > 6                                      |   
-| df[df.col1.str.startswith('xxx')]  <br> eg. euro12[euro12.Team.str.startswith('G')]   | filter rows based on col1 values starts with 'xxx'                        |  
-| df['col'] = temp_col <br> eg, chipo['peritem_price'] = peritem_price                  | add newly generated column into dataframe, assign column name 'col'       |
-| df.drop(columns=['col1'])                                        | drop col1                                   |  
-| df[df.col1 == 'xxx']<br>eg, chipo[chipo.item_name == 'Veg Salad']                     | select rows with "xxx" from column 1                                      |
-| df[df.col1 != 'xxx']<br>eg, chipo[chipo.item_name != 'Veg Salad']                     | select rows without "xxx" from column 1                                   |
-| df[df.col1 == 'xxx'].mean()       | select rows with "xxx" from column 1, give mean for all columns                                                               |
+| df[['col1','col2','col3']]                                                 | printe the column 1, 2 and 3                           |
+| df.col1.dtype                                                              | type of data for a particluar column                   |   
+| df.col1.describe()                                                         | descriptive statistics of col1                         |   
+| df['col1'] +-*/ df['col2']                                                  col1 plus / minus / mutliple / divide by col2           |  
+| df.col1.value_counts().count()                                             | count the number of distinct values of col1            |   
+| df.sort_values(by=['col1', 'col2'], ascending = False)                     | sorting 1st by col1, then 2nd by col2, decsending      |    
+| df[df.col1 > number]  <br> eg. euro12[euro12.Goals > 6]                    | filter rows based on col1 values > 6                   |   
+| df[df.col1.str.startswith('xxx')]<br>eg. euro12[euro12.Team.str.startswith('G')]| filter rows based on col1 values starts with 'xxx'|  
+| df['col'] = temp_col<br>eg, chipo['peritem_price'] = peritem_price         | add newly generated column into dataframe, assign column name 'col'|
+| df.drop(columns=['col1'])                                                  | drop col1                                              |  
+| df[df.col1 == 'xxx']<br>eg, chipo[chipo.item_name == 'Veg Salad']          | select rows with "xxx" from column 1                   |
+| df[df.col1 != 'xxx']<br>eg, chipo[chipo.item_name != 'Veg Salad']          | select rows without "xxx" from column 1                |
+| df[df.col1 == 'xxx'].mean()       | select rows with "xxx" from column 1, give mean for all columns                                 |
 
 ## df.groupby and calculator
 
@@ -170,4 +174,12 @@ df['col1'] = df['col1'].apply(cap)
 df['col1'] = df['col1'].apply(upper)
 df['col1'] = df['col1'].apply(lower)
 ```
+
+# .isin
+## The Mojave Desert states
+canu = ["California", "Arizona", "Nevada", "Utah"]
+## Filter for rows in the Mojave Desert states
+mojave_homelessness = homelessness[homelessness['state'].isin(canu)]
+
+
 
