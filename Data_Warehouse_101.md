@@ -143,6 +143,49 @@ GROUP BY 1
 ## Multi-table query
 ![multi_table_query.png][5]  
 
+# Frank Bien's Three Waves of data analytics
+
+In the first wave of data analytics, companies developed and sold monolithic stacks — that is, an all-in-one solution that came with data warehouse, data transformer, data cube solution, and visualization suite. This approach evolved out of technical necessity as much as anything else.
+
+In this 'second wave' of business intelligence, data cubes and Cognoslike stacks continued to evolve, but new tools championed a 'selfservice' orientation. Tools like Tableau gave business users beautiful dashboards and visualizations with not a line of code in sight. These tools were in turn fed by data exports drawn from the earlier firstwave environment. The basic idea was that analysts and business users would download datasets from these central data systems, and then load these datasets into tools that they could install on their own computers.
+
+Massively parallel processing (MPP) data warehouses
+   - cloud vendor pricing model
+   - scale up to hundreds or thousands of machines as is needed for the task at hand
+columnar storage architecture
+
+
+
+cube-oriented systems
+decentralized Tableau-type analytical workflows
+
+|vs|||
+|-|-|-|
+|SQL vs Non-SQL | Non-SQL: Tableau, PowerBI, Sisense |SQL: Holistics, Looker,Mode, Redash, Metabase|
+|Embedded Datastore vs External Datastore|Embedded: MicroStrategy,Tableau, PowerBI, Sisense|External: Holistics, Looker,Metabase, Redash
+|In-memory vs Indatabase |In-memory: Tableau,MicroStrategy, Sisense,PowerBI, etc.|In-database: Holistics, Looker, Redash, Metabase, etc.|
+|Modeling vs nonmodeling BI tools |Non-modeling: Tableau, Mode,Redash|Modeling: Qlik, PowerBI,Looker, Holistics|
+
+# Data maturity model
+Emily Schario of GitLab, argues that all organizations go
+through the same, three levels of data analysis:
+
+1. Reporting — This is the lowest level. 
+   1. ‘how many new users visited our website last week?’ and 
+   2. ‘how many leads did we capture this month?’
+   3. if you do not collect data or if you do not have the cultural expectation of using it, you’re not going to base your decisions on facts.
+2. Insights — Insights is the next level above reporting.
+   1. insights are about understanding relationships between facts
+   2. implies combining data from multiple sources
+   3. the number of new customers who cancelled their subscription this month is a reporting metric.
+   4. If we combine 2 data in sales CRM, we might learn that we have been targeting a bad subsegment of our market.
+   5. This observation is an insight, and can lead to behavioral change among sales and product
+3. Predictions — Predictions come after insights.
+   1. statistical analysis and machine learning.
+   2. after increasingly understands the relationships between various metrics, you may begin to make informed business decisions to drive outcomes that you desire
+   3. eg, Facebook discover that users who add at least seven friends in their first 10 days are the most likely to stick around.
+
+
 ---
 [1]:db_warehouse_img/bookings_daily_transform.png  
 [2]:db_warehouse_img/directed_acyclic_graph.png  
