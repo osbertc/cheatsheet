@@ -86,13 +86,14 @@ raw_data_2 = [
 ]
 data2 = pd.DataFrame(raw_data_2, columns = ['subject_id', 'first_name', 'last_name'])
 ```
- 
+
 
 ## Command for dataframe  
 
 | Command for dataframe | Remark |  
 | --------------------- | ------ |  
-| df.info()                                               | summary of dataframe                                                      |   
+| df1 = s1.to_frame()                                     | transform Series to a DataFrame                                           |  
+| df.info()                                               | summary of dataframe                                                      |    
 | df.shape                                                | dimension of dataframe                                                    |   
 | len(df)                                                 | length of dataframe                                                       |
 | df.count()                                              | by default, get the count of each column                                  |  
@@ -101,7 +102,7 @@ data2 = pd.DataFrame(raw_data_2, columns = ['subject_id', 'first_name', 'last_na
 | df.dtypes                                               | list the type of data                                                     |     
 | df.describe()                                           | descriptive statistics of string columns                                  |   
 | df.describe(include = 'all')                            | descriptive statistics, ingore datatypes                                  | 
-| df.function.reset_index()                               | reset_index with origin index, if index not available then auto generate  |
+| df.function.reset_index(drop=True, inplace=True)        | reset_index with origin index, if index not available then auto generate  |
 | df.function.unstack()                                   | return df without hierarchical index labels                               | 
 
 ## df.loc and df.iloc 
@@ -127,7 +128,7 @@ data2 = pd.DataFrame(raw_data_2, columns = ['subject_id', 'first_name', 'last_na
   - df2 dataframe is appended at the bottom of df1   
 
 | df1.append(df2, ignore_index=True, sort=False)       | Add df2 to df1, rename as new_df                                | 
-| pd.concat([df1, df2])                                | Join df1 and df2 (df2 as latter), both have identical structure | 
+| pd.concat([df1, df2], axis=1)                        | Join df1 and df2 (df2 as latter), both have identical structure | 
 | pd.merge(data1, data2, on='subject_id', how='inner') | select * from `table1` inner join `table2`;                     | 
 | pd.merge(data1, data2, on='subject_id', how='outer') | select * from `table1` outer join `table2`;                     |
 
@@ -160,7 +161,10 @@ df[(df['DateTime'] > start_time) & (df['DateTime'] <= end_time)]
 - https://pandas.pydata.org/pandas-docs/version/0.9.1/timeseries.html  
 - some example:  
 ```python
-new_df = np.random.randint(15000, high=73001, size=398, dtype='l')
+df = np.random.randint(low, high=None, size=None, dtype='l') #dtype = int, int64, l
+df = pd.Series(np.random.randint(1, high=100, size=1000))
+df = np.random.randint(1, high=100, size=1000)
+
 df.sample(20) # random sample 20 rows
 
 df.resample('S').sum() # 'S' indicates seconds 
@@ -190,6 +194,8 @@ df.resample('AS').sum()
 | df[df.col1 == 'xxx']<br>eg, chipo[chipo.item_name == 'Veg Salad']          | select rows with "xxx" from column 1                   |
 | df[df.col1 != 'xxx']<br>eg, chipo[chipo.item_name != 'Veg Salad']          | select rows without "xxx" from column 1                |
 | df[df.col1 == 'xxx'].mean()       | select rows with "xxx" from column 1, give mean for all columns                                 |
+| df.rename(columns = {0: 'col1', 1: 'col2', 2: 'col3'}, inplace=True)       | rename columns                                         |
+
 
 ## df.groupby and calculator
 
