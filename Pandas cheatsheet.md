@@ -5,9 +5,11 @@
 - [Pandas cheatsheet](#pandas-cheatsheet)
   - [quicklink](#quicklink)
   - [General rules](#general-rules)
-  - [Import data](#import-data)
+  - [Import data as csv](#import-data-as-csv)
+  - [Import data as json](#import-data-as-json)
   - [Command for dataframe](#command-for-dataframe)
   - [df.loc and df.iloc](#dfloc-and-dfiloc)
+  - [Joining 2 dataset](#joining-2-dataset)
   - [Datetime function](#datetime-function)
     - [datetime assign as index](#datetime-assign-as-index)
     - [select row between two non-indexed datetime](#select-row-between-two-non-indexed-datetime)
@@ -32,40 +34,75 @@
 [datacamp, data science](http://datacamp-community-prod.s3.amazonaws.com/9fb0cc3f-19fb-4be8-8d3f-68f10a95cc16)  
 
 ## General rules  
+
 | Javascript | Python     |
 |-           |-           |
 |Object      |Dictionaries|
 |Arrays      |Lists       |
 
-## Import data 
-
-- For sep = ',' 
-    - df = pd.read_csv(url, index_col = 'column_name') 
-    - *CSV: comma separated values*
-- For sep = '\t'
-    - df = pd.read_table(url, index_col = 'column_name')
-- df['Column 1'] = df.col1  
-eg, discipline[discipline['Yellow Cards'] > 2] = discipline[discipline.yellow_cards] > 2]
 - set column 1 as index 
     - df.set_index('col1')
+- df['Column 1'] = df.col1  
+eg, discipline[discipline['Yellow Cards'] > 2] = discipline[discipline.yellow_cards] > 2]
+
+## Import data as csv
+
+*CSV: comma separated values*
+```python
+df = pd.read_csv(url, index_col = 'column_name',sep = ',' ) 
+df = pd.read_table(url, index_col = 'column_name', sep = '\t')
+```
+
+## Import data as json
+
+```python
+/*can be by columns*/
+
+raw_data_1 = {
+        'subject_id': ['1', '2', '3'],
+        'first_name': ['jack', 'sally', 'Oogie'], 
+        'last_name': ['skellington', 'finklestein', 'Boogie']}
+
+data1 = pd.DataFrame(raw_data_1, columns = ['subject_id', 'first_name', 'last_name'])
+
+/*can be by rows*/
+
+raw_data_2 = [
+        {
+        'subject_id': '1',
+        'first_name': 'jack', 
+        'last_name':  'skellington'
+        },
+        {
+        'subject_id': '2',
+        'first_name': 'sally', 
+        'last_name':  'finklestein'
+        },
+        {
+        'subject_id': '3',
+        'first_name': 'Oogie', 
+        'last_name':  'Boogie'
+        }
+]
+data2 = pd.DataFrame(raw_data_2, columns = ['subject_id', 'first_name', 'last_name'])
+```
  
 
 ## Command for dataframe  
 
 | Command for dataframe | Remark |  
 | --------------------- | ------ |  
-| df.info()                                                        | summary of dataframe                                                      |   
-| df.shape                                                         | dimension of dataframe                                                    |   
-| len(df)                                                          | length of dataframe                                                       |
-| df.count()                                                       | by default, get the count of each column                                  |  
-| df.index                                                         | the index (row labels)                                                    |   
-| df.columns                                                       | list out all column_name as a list                                        |   
-| df.dtypes                                                        | list the type of data                                                    |     
-| df.describe()                                                    | descriptive statistics of string columns                                  |   
-| df.describe(include = 'all')                                     | descriptive statistics, ingore datatypes                                  | 
-| df.function.reset_index()                                        | reset_index with origin index, if index not available then auto generate  |
-| df.function.unstack()                                            | return df without hierarchical index labels                               |
-| new_df = df1.append(df2, ignore_index=True, sort=False)          | Join df1 and df2 into a single DataFrame called new_df                    | 
+| df.info()                                               | summary of dataframe                                                      |   
+| df.shape                                                | dimension of dataframe                                                    |   
+| len(df)                                                 | length of dataframe                                                       |
+| df.count()                                              | by default, get the count of each column                                  |  
+| df.index                                                | the index (row labels)                                                    |   
+| df.columns                                              | list out all column_name as a list                                        |   
+| df.dtypes                                               | list the type of data                                                     |     
+| df.describe()                                           | descriptive statistics of string columns                                  |   
+| df.describe(include = 'all')                            | descriptive statistics, ingore datatypes                                  | 
+| df.function.reset_index()                               | reset_index with origin index, if index not available then auto generate  |
+| df.function.unstack()                                   | return df without hierarchical index labels                               | 
 
 ## df.loc and df.iloc 
 
@@ -80,6 +117,19 @@ eg, discipline[discipline['Yellow Cards'] > 2] = discipline[discipline.yellow_ca
 | df.iloc[[a,b],[c,d]] <br>eg. df.iloc[[1,3],[2,4]]                | select rows index(a) and (b) and columns index(c) and (d)     |   
 | df.iloc[[a:b]] <br>eg. df.iloc[[1:3]]                            | select rows index(a:b)                                        | 
 | df.loc[["index5"]].iloc[:,2]                                     | select the third cell in the row index named index5           |
+
+## Joining 2 dataset  
+
+- Merge  
+  - The 2 dataframes are merged on the basis of values in column "Key"  
+  - column "Key" is a common column in 2 dataframes    
+- Concat  
+  - df2 dataframe is appended at the bottom of df1   
+
+| df1.append(df2, ignore_index=True, sort=False)       | Add df2 to df1, rename as new_df                                | 
+| pd.concat([df1, df2])                                | Join df1 and df2 (df2 as latter), both have identical structure | 
+| pd.merge(data1, data2, on='subject_id', how='inner') | select * from `table1` inner join `table2`;                     | 
+| pd.merge(data1, data2, on='subject_id', how='outer') | select * from `table1` outer join `table2`;                     |
 
 ## Datetime function
 
@@ -180,6 +230,5 @@ df['col1'] = df['col1'].apply(lower)
 canu = ["California", "Arizona", "Nevada", "Utah"]
 ## Filter for rows in the Mojave Desert states
 mojave_homelessness = homelessness[homelessness['state'].isin(canu)]
-
 
 
