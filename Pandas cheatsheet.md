@@ -156,9 +156,11 @@ df[(df['DateTime'] > start_time) & (df['DateTime'] <= end_time)]
 ```
 
 ### date offset alias   
-- https://pandas.pydata.org/pandas-docs/version/0.9.1/timeseries.html
-- some example:
+
+- https://pandas.pydata.org/pandas-docs/version/0.9.1/timeseries.html  
+- some example:  
 ```python
+new_df = np.random.randint(15000, high=73001, size=398, dtype='l')
 df.sample(20) # random sample 20 rows
 
 df.resample('S').sum() # 'S' indicates seconds 
