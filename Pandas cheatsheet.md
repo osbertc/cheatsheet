@@ -16,11 +16,13 @@
     - [date offset alias](#date-offset-alias)
   - [Commond for column of dataframe](#commond-for-column-of-dataframe)
   - [df.groupby and calculator](#dfgroupby-and-calculator)
+  - [Statistics](#statistics)
   - [Lambda function](#lambda-function)
     - [Example: lambda function that will capitlaize strings](#example-lambda-function-that-will-capitlaize-strings)
 - [.isin](#isin)
   - [The Mojave Desert states](#the-mojave-desert-states)
   - [Filter for rows in the Mojave Desert states](#filter-for-rows-in-the-mojave-desert-states)
+- [Series](#series)
 
 <!-- /TOC -->
 
@@ -127,6 +129,8 @@ data2 = pd.DataFrame(raw_data_2, columns = ['subject_id', 'first_name', 'last_na
 - Concat  
   - df2 dataframe is appended at the bottom of df1   
 
+| - | - |  
+| - | - |  
 | df1.append(df2, ignore_index=True, sort=False)       | Add df2 to df1, rename as new_df                                | 
 | pd.concat([df1, df2], axis=1)                        | Join df1 and df2 (df2 as latter), both have identical structure | 
 | pd.merge(data1, data2, on='subject_id', how='inner') | select * from `table1` inner join `table2`;                     | 
@@ -143,8 +147,6 @@ data2 = pd.DataFrame(raw_data_2, columns = ['subject_id', 'first_name', 'last_na
 ### datetime assign as index
 ```python
 df.date_col = pd.to_datetime(df.date_col,format="%Y%m%d")
-
-df.idxmax(0) #Get the row label of the maximum value in Pandas series
 ```
 
 
@@ -201,18 +203,29 @@ df.resample('AS').sum()
 
 | Aggregated statistics with groups | Remark |  
 | ---                               | ---    |
-| df.groupby('col1').describe( )                                                         | decsciptive statistics of all columns grouped-by col1                     |
-| df.groupby(['col1','col2']).col3.describe( )                                           | decsciptive statistics of col3 grouped-by col1 and col2                   |
-| df.col1.sum( )                                                                         | sum of all value of a particular column (col1)                            | 
-| df.agg(['sum','min','max','mean'])                                                    | Aggregate these functions over the rows                                   |
-| df.col1.agg(['min','max','mean'])                                                     | Aggregate these functions over col1                                       |
-| df.agg({'col1' : ['sum','min'], 'col2' : ['min','max']})                              | Different aggregations per column                                         |
-| df.agg('mean', axis='columns')<br>add<br>sub<br>mul<br>div<br>mod # return whole number<br>pow<br>tbc       | Aggregate over the columns<br>+<br>-<br>*<br>/<br>//<br>**<br>%       |
-| combine both <br> df.groupby[('col1','col2')].col3.agg(['sum','min','max','mean'])    | Aggregate these functions over grouped col3, grouped-by col1 and col2     |
-| col1_pct_change = col1.pct_change( ) | percentage change of column 1 |
-| col1.fillna(0, inplace=True) <br> pct_change.fillna(0, inplace=True) | Replace NaN values with 0 |
+| df.groupby('col1').describe( )                                      | decsciptive statistics of all columns grouped-by col1   |
+| df.groupby(['col1','col2']).col3.describe( )                        | decsciptive statistics of col3 grouped-by col1 and col2 |
+| df.col1.sum( )                                                      | sum of all value of a particular column (col1)          | 
+| df.agg(['sum','min','max','mean'])                                  | Aggregate these functions over the rows                 |
+| df.col1.agg(['min','max','mean'])                                   | Aggregate these functions over col1                     |
+| df.agg({'col1' : ['sum','min'], 'col2' : ['min','max']})            | Different aggregations per column                       |
+| df.agg('mean', axis='columns')                                      | Aggregate over the columns                              |
+| add<br>sub<br>mul<br>div<br>mod (return whole number)<br>pow<br>tbc | +<br>-<br>*<br>/<br>//<br>**<br>%                       |
+| combine both <br> df.groupby[('col1','col2')].col3.agg(['sum','min','max','mean'])    | Aggregate these functions over grouped col3, grouped-by col1 and col2 |
+| col1_pct_change = col1.pct_change( )                                | percentage change of column 1                           |
+| col1.fillna(0, inplace=True) <br>pct_change.fillna(0, inplace=True) | Replace NaN values with 0                               |
 
- = arithmetic operators: +, -, *, /, //, %, **
+
+## Statistics
+
+| descriptive statistics                  | Remark |  
+| ---                                     | ---    |
+| df.max() or<br> df['Col 1'].max()       | returns the maximum value                                      |
+| df.idxmax() or<br> df['Col 1'].idxmax() | returns the index of the (first occurrence of the) maximum value, not the maximum value itself |
+| df[df["Col 1"] == df['Col 1'].median()] | returns the list of records where value is median              |
+| len(df[df.col1 == df.col1.median()])    | returns the length of (list of records where value is median)  |
+
+
 
 
 ## Lambda function 
@@ -239,4 +252,12 @@ canu = ["California", "Arizona", "Nevada", "Utah"]
 ## Filter for rows in the Mojave Desert states
 mojave_homelessness = homelessness[homelessness['state'].isin(canu)]
 
+
+# Series
+
+| - | - |
+| - | - |
+| series.size  | Return number of elements |  
+| series.size  | Return a tuple of shape   |  
+| series.rank  | Rank values               |
 
