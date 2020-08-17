@@ -11,15 +11,13 @@
   - [df.loc and df.iloc](#dfloc-and-dfiloc)
   - [Joining 2 dataset](#joining-2-dataset)
   - [Datetime function](#datetime-function)
-    - [datetime assign as index](#datetime-assign-as-index)
-    - [select row between two non-indexed datetime](#select-row-between-two-non-indexed-datetime)
-    - [date offset alias](#date-offset-alias)
+  - [date offset alias](#date-offset-alias)
   - [Commond for column of dataframe](#commond-for-column-of-dataframe)
   - [df.groupby and calculator](#dfgroupby-and-calculator)
   - [Statistics](#statistics)
   - [Lambda function](#lambda-function)
     - [Example: lambda function that will capitlaize strings](#example-lambda-function-that-will-capitlaize-strings)
-- [.isin](#isin)
+- [isin](#isin)
   - [The Mojave Desert states](#the-mojave-desert-states)
   - [Filter for rows in the Mojave Desert states](#filter-for-rows-in-the-mojave-desert-states)
 - [Series](#series)
@@ -42,8 +40,7 @@
 |Object      |Dictionaries|
 |Arrays      |Lists       |
 
-- set column 1 as index 
-    - df.set_index('col1')
+
 - df['Column 1'] = df.col1  
 eg, discipline[discipline['Yellow Cards'] > 2] = discipline[discipline.yellow_cards] > 2]
 
@@ -94,18 +91,19 @@ data2 = pd.DataFrame(raw_data_2, columns = ['subject_id', 'first_name', 'last_na
 
 | Command for dataframe | Remark |  
 | --------------------- | ------ |  
-| df1 = s1.to_frame()                                     | transform Series to a DataFrame                                           |  
-| df.info()                                               | summary of dataframe                                                      |    
-| df.shape                                                | dimension of dataframe                                                    |   
-| len(df)                                                 | length of dataframe                                                       |
-| df.count()                                              | by default, get the count of each column                                  |  
-| df.index                                                | the index (row labels)                                                    |   
-| df.columns                                              | list out all column_name as a list                                        |   
-| df.dtypes                                               | list the type of data                                                     |     
-| df.describe()                                           | descriptive statistics of string columns                                  |   
-| df.describe(include = 'all')                            | descriptive statistics, ingore datatypes                                  | 
-| df.function.reset_index(drop=True, inplace=True)        | reset_index with origin index, if index not available then auto generate  |
-| df.function.unstack()                                   | return df without hierarchical index labels                               | 
+| df1 = s1.to_frame()                                | transform Series to a DataFrame                                           |  
+| df.info()                                          | summary of dataframe                                                      |    
+| df.shape                                           | dimension of dataframe                                                    |   
+| len(df)                                            | length of dataframe                                                       |
+| df.count()                                         | by default, get the count of each column                                  |  
+| df.index                                           | the index (row labels)                                                    |   
+| df.columns                                         | list out all column_name as a list                                        |   
+| df.dtypes                                          | list the type of data                                                     |     
+| df.describe()                                      | descriptive statistics of string columns                                  |   
+| df.describe(include = 'all')                       | descriptive statistics, ingore datatypes                                  | 
+|  df.set_index('col1')                              | set column 1 as index                                                     |
+| df.function.reset_index(drop=True, inplace=True)   | reset_index with origin index, if index not available then auto generate  |
+| df.function.unstack()                              | return df without hierarchical index labels                               | 
 
 ## df.loc and df.iloc 
 
@@ -136,32 +134,31 @@ data2 = pd.DataFrame(raw_data_2, columns = ['subject_id', 'first_name', 'last_na
 | pd.merge(data1, data2, on='subject_id', how='inner') | select * from `table1` inner join `table2`;                     | 
 | pd.merge(data1, data2, on='subject_id', how='outer') | select * from `table1` outer join `table2`;                     |
 
-## Datetime function
+## Datetime function  
 
-| | |
-| --- | --- |
+- **Datetime** module: supplies classes for manipulating dates and times  
+
+```python
+import datetime 
+
+```
+
+| Datetime Function    | Remarks |
+| ---                  | ---     |
 | df.loc[pd.Timestamp('YYYY-MM-DD'):pd.Timestamp('YYYY-MM-DD')].head(1) | inspect the first row of specified period of datetime |
-| df.loc['YYYY'].head(1) | inspect the first row of specified year |
-|||
+| df.loc['YYYY'].head(1)                                                | inspect the first row of specified year               |
+| df[(df['DateTime'] > start_time) & (df['DateTime'] <= end_time)]      | select row between two non-indexed datetime           |
+| start_time = '2019-01-01' <br>end_time = '2020-01-01'                 | ---                                                   |
+| df['date_col'] = pd.to_datetime(df['date_col'],format="%Y%m%d")       | datetime assign as index                              |
+| df = pd.read_table(path, parse_dates = [[0,1,2]])                     | use the first 3 columns as a datetime index           | 
+| e.g., <br>Yr Mo Dy <br>61 1 1                                         | ---     |   
 
-### datetime assign as index
-```python
-df.date_col = pd.to_datetime(df.date_col,format="%Y%m%d")
-```
-
-
-### select row between two non-indexed datetime
-```python
-start_time = '2019-01-01'
-end_time = '2020-01-01'
-
-df[(df['DateTime'] > start_time) & (df['DateTime'] <= end_time)]
-```
-
-### date offset alias   
+## date offset alias   
 
 - https://pandas.pydata.org/pandas-docs/version/0.9.1/timeseries.html  
 - some example:  
+
+
 ```python
 df = np.random.randint(low, high=None, size=None, dtype='l') #dtype = int, int64, l
 df = pd.Series(np.random.randint(1, high=100, size=1000))
@@ -246,9 +243,11 @@ df['col1'] = df['col1'].apply(upper)
 df['col1'] = df['col1'].apply(lower)
 ```
 
-# .isin
+# isin
+
 ## The Mojave Desert states
 canu = ["California", "Arizona", "Nevada", "Utah"]
+
 ## Filter for rows in the Mojave Desert states
 mojave_homelessness = homelessness[homelessness['state'].isin(canu)]
 
