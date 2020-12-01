@@ -14,6 +14,7 @@
   - [date offset alias](#date-offset-alias)
   - [Commond for column of dataframe](#commond-for-column-of-dataframe)
   - [df.groupby and calculator](#dfgroupby-and-calculator)
+  - [null -- missing data](#null----missing-data)
   - [Statistics](#statistics)
   - [Lambda function](#lambda-function)
     - [Example: lambda function that will capitlaize strings](#example-lambda-function-that-will-capitlaize-strings)
@@ -42,7 +43,7 @@
 
 
 - df['Column 1'] = df.col1  
-eg, discipline[discipline['Yellow Cards'] > 2] = discipline[discipline.yellow_cards] > 2]
+eg, weather[weather['Shatin'] > 2] = weather[weather.Shatin] > 2]
 
 ## Import data as csv
 
@@ -153,6 +154,8 @@ import datetime
 | df = pd.read_table(path, parse_dates = [[0,1,2]])                     | use the first 3 columns as a datetime index           | 
 | e.g., <br>Yr Mo Dy <br>61 1 1                                         | ---     |   
 
+data = data.set_index('Yr_Mo_Dy')
+
 ## date offset alias   
 
 - https://pandas.pydata.org/pandas-docs/version/0.9.1/timeseries.html  
@@ -203,6 +206,7 @@ df.resample('AS').sum()
 | df.groupby('col1').describe( )                                      | decsciptive statistics of all columns grouped-by col1   |
 | df.groupby(['col1','col2']).col3.describe( )                        | decsciptive statistics of col3 grouped-by col1 and col2 |
 | df.col1.sum( )                                                      | sum of all value of a particular column (col1)          | 
+| df.mean()                                                           | mean by column |    
 | df.agg(['sum','min','max','mean'])                                  | Aggregate these functions over the rows                 |
 | df.col1.agg(['min','max','mean'])                                   | Aggregate these functions over col1                     |
 | df.agg({'col1' : ['sum','min'], 'col2' : ['min','max']})            | Different aggregations per column                       |
@@ -212,6 +216,24 @@ df.resample('AS').sum()
 | col1_pct_change = col1.pct_change( )                                | percentage change of column 1                           |
 | col1.fillna(0, inplace=True) <br>pct_change.fillna(0, inplace=True) | Replace NaN values with 0                               |
 
+
+## null -- missing data  
+
+> isnull <-opposite to-> notnull  
+> 
+```python
+
+df.isnull() # return a new DataFrame with True & False data 
+
+df.isnull().sum() # count total NaN at each column
+
+df.isnull().sum().sum() # count total NaN of whole df
+
+df.notnull().sum() # count total non-null at each column
+
+df.notna() # return a boolean same-sized object indicate if values are non-null
+df.notna().sum() # return a series, of sum of all values by columns
+```
 
 ## Statistics
 
