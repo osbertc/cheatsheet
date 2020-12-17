@@ -5,6 +5,7 @@
 - [Pandas cheatsheet](#pandas-cheatsheet)
   - [quicklink](#quicklink)
   - [General rules](#general-rules)
+  - [Logic operators](#logic-operators)
   - [Import data as csv](#import-data-as-csv)
   - [Import data as json](#import-data-as-json)
   - [Command for dataframe](#command-for-dataframe)
@@ -44,6 +45,15 @@
 
 - df['Column 1'] = df.col1  
 eg, weather[weather['Shatin'] > 2] = weather[weather.Shatin] > 2]
+
+## Logic operators  
+
+|||
+|-|-|
+|exp1 & exp2  |        # Element-wise logical AND | 
+|exp1 | exp2  |        # Element-wise logical OR  | 
+|~exp1        |        # Element-wise logical NOT |
+
 
 ## Import data as csv
 
