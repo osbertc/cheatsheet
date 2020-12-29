@@ -42,3 +42,16 @@ sns.stripplot(x = "tip", y = "day", hue = "sex", data = tips, jitter = True)
 ```python
 sns.boxplot(x = "day", y = "total_bill", hue = "time", data = tips)
 ```
+
+## creates FacetGrid
+- FacetGrid = Multi-plot grid for plotting conditional relationships
+
+```python
+# multi-plot histogram
+g = sns.FacetGrid(tips, col = "time")
+g.map(plt.hist, "tip")
+
+# multi-plot scatter plot
+g = sns.FacetGrid(tips, col = "sex", hue = "smoker")
+g.map(plt.scatter, "total_bill", "tip", alpha =.7)
+```
