@@ -1,5 +1,8 @@
 # Seaborn
 
+- Seaborn is a Python data visualization library based on matplotlib. 
+- It provides a high-level interface for drawing attractive and informative statistical graphics.
+
 ```python 
 import seaborn as sns
 ```
@@ -31,7 +34,8 @@ sns.pairplot(tips)
 ```
 
 ## strip plot 
-- scatter plot by groups
+- scatter plot by groups (hue = "colName")
+- only alone categorical axis, spread out dots when you have many points and they overlap (jitter = True / 1)
 
 ```python
 sns.stripplot(x = "tip", y = "day", hue = "sex", data = tips, jitter = True)
@@ -47,11 +51,12 @@ sns.boxplot(x = "day", y = "total_bill", hue = "time", data = tips)
 - FacetGrid = Multi-plot grid for plotting conditional relationships
 
 ```python
-# multi-plot histogram
+# multi-plot **histogram**
 g = sns.FacetGrid(tips, col = "time")
 g.map(plt.hist, "tip")
 
-# multi-plot scatter plot
+# multi-plot **scatter plot**
 g = sns.FacetGrid(tips, col = "sex", hue = "smoker")
 g.map(plt.scatter, "total_bill", "tip", alpha =.7)
 ```
+
