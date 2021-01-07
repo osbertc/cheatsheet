@@ -21,6 +21,8 @@ ttbill.set(xlabel = 'Value', ylabel = 'Frequency', title = "Total Bill")
 
 ```python 
 sns.scatterplot(x = "total_bill", y = "tip", data = tips)
+
+lm = sns.lmplot(x = 'Age', y = 'Fare', data = titanic, hue = 'Sex', fit_reg=False)
 ```
 
 ## pair plot
@@ -62,13 +64,46 @@ g.map(plt.scatter, "total_bill", "tip", alpha =.7)
 
 ## Pie Chart
 ```python
-# simplified pie chart
+
+# First groupby the data by delivery type
+chart_sex = titanic_Pid.groupby("Sex")["Sex"].count()
+chart_sex
+
+# 1. simplified pie chart
 chart_sex.plot.pie(autopct="%.1f%%")
 
-#Using matplotlib
+# 2. Using matplotlib
 pie, ax = plt.subplots(figsize=[10,6])
 labels = data.keys()
-plt.pie(x=data, autopct="%.1f%%", explode=[0.05]*4, labels=labels, pctdistance=0.5)
-plt.title("Delivery Tips by type", fontsize=14);
+
+# Create a pie chart
+plt.pie(
+    # using chart_sex
+    x=chart_sex,
+    
+    # with the labels being officer names
+    labels = labels
+    
+    # with no shadows
+    shadow = False,
+    
+    # with colors
+    colors = ['blue','red'],
+    
+    # with one slide exploded out
+    explode = (0.15 , 0),
+    
+    # with the start angle at 90%
+    startangle = 90,
+    
+    # with the percent listed as a fraction
+    autopct = '%1.1f%%'
+    )
+
+plt.title("Delivery Tips by type", fontsize=14)
+
 pie.savefig("DeliveryPieChart.png")
 ```
+
+
+
