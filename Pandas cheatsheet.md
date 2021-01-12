@@ -114,7 +114,8 @@ data2 = pd.DataFrame(raw_data_2, columns = ['subject_id', 'first_name', 'last_na
 | df.describe(include = 'all')                       | descriptive statistics, ingore datatypes                                  | 
 |  df.set_index('col1')                              | set column 1 as index                                                     |
 | df.function.reset_index(drop=True, inplace=True)   | reset_index with origin index, if index not available then auto generate  |
-| df.function.unstack()                              | return df without hierarchical index labels                               | 
+| df.function.unstack()                              | return df without hierarchical index labels                               |
+| (apple_new.index.max() - apple_new.index.min()).days | difference in days between the first day and the oldest |
 
 ## df.loc and df.iloc 
 
@@ -207,6 +208,8 @@ df.resample('AS').sum()
 | df[df.col1 != 'xxx']<br>eg, chipo[chipo.item_name != 'Veg Salad']          | select rows without "xxx" from column 1                |
 | df[df.col1 == 'xxx'].mean()       | select rows with "xxx" from column 1, give mean for all columns                                 |
 | df.rename(columns = {0: 'col1', 1: 'col2', 2: 'col3'}, inplace=True)       | rename columns                                         |
+| df['col1'].head()                                                          | check column datatype: Name: Date, dtype: datetime64   |
+| df['col1'].is_unique                                                       | check any duplicated data of column 1                  |
 
 
 ## df.groupby and calculator
@@ -242,6 +245,7 @@ df.isnull().sum().sum() # count total NaN of whole df
 df.notnull().sum() # count total non-null at each column
 
 df.notna() # return a boolean same-sized object indicate if values are non-null
+
 df.notna().sum() # return a series, of sum of all values by columns
 ```
 
