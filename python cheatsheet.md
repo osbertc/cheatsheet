@@ -3,17 +3,19 @@
 <!-- TOC -->
 
 - [Python cheatsheet](#python-cheatsheet)
-  - [high-light](#high-light)
+  - [High-light](#high-light)
   - [Basic](#basic)
   - [Variable, List, Object](#variable-list-object)
+  - [Operators](#operators)
+    - [Mathethic Operator](#mathethic-operator)
+    - [Comparison operator](#comparison-operator)
+    - [Logical Operator](#logical-operator)
   - [String Manipulations](#string-manipulations)
-  - [simple math](#simple-math)
-  - [comparison operator](#comparison-operator)
-  - [if statments](#if-statments)
+  - [if, else statments](#if-else-statments)
 
 <!-- /TOC -->
 
-## high-light
+## High-light
 
 | JSON | Python | 
 | ---| --- | 
@@ -70,21 +72,9 @@ coffees_price = [
   ]
 ```
 
-## String Manipulations
+## Operators
 
-```python 
- print('hello world')
-# basic variable 
-var = 'hello world'
-print(var)
-print(var.lower())
-print(var.upper())
-print(var.title())
-print(var.split(' '))
-new_var = ("Fizz" + "Buzz")
-```
-
-## simple math
+### Mathethic Operator
 
 Mathethic Operator | Function
 --- | --- 
@@ -95,7 +85,9 @@ Mathethic Operator | Function
 2**3 = 8 | Exponentiation **
 29%3 = 2 | Modulo <br> Returns the reainder of the division
 
-## comparison operator
+
+
+### Comparison operator
 
 Comparison Operator | Function
 --- | --- 
@@ -106,12 +98,34 @@ Comparison Operator | Function
 == | equal
 != | not equal
 
-## if statments
-```python
- 
-for name in list:
-    if name == var:
-        pass
-    else:
-        print(name)
+### Logical Operator
+
+Logical Operator | Description
+--- | ---
+and | If both the operands are True then condition becomes True.
+or | If any of the two operands are True then condition becomes True. 
+not | Used to reverse the logical (not False becomes True, not True becomes False)
+
+## String Manipulations
+
+```python 
+var = 'regular latte'
+print(var)
+print(var.lower())
+print(var.upper())
+print(var.title())
+print(var.split(' '))
+new_var = ("large" + "mocha")
 ```
+
+## if, else statments
+```python
+order = 'latte'  # customer place order
+coffees_list = ['black', 'latte', 'cappuccino', 'espresso', 'mocha', 'flat white', 'irish']  # our shop's product list
+for coffee in coffees_list: 
+    if coffee != order: 
+        pass # pass if order not match list
+    else:
+        print('Our Coffee list have customer\'s perfered coffee')
+```
+
