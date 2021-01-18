@@ -129,3 +129,12 @@ for coffee in coffees_list:
         print('Our Coffee list have customer\'s perfered coffee')
 ```
 
+## f-Strings
+```python
+name = "Jack"
+age = 1997
+f"Hello, {name}. You are {age}."
+
+output: 'Hello, Jack. You are 1997.'
+
+```
