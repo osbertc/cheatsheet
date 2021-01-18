@@ -53,23 +53,29 @@ coffees_list = ['black', 'latte', 'cappuccino', 'espresso', 'mocha', 'flat white
 
 Object: 
 ```python
-coffees_price = [
-    {'black':{
-        'size':['small','regular','large'],
-        'price': ['32','39','42']
-     }
-    },
-    {'latte':{
-       'size': ['small','regular','large'],
-       'price':['32','39','42']
-     }
-    },
-    {'cappuccino':{
-       'size': ['small','regular','large'],
-       'price':['32','39','42']
-     }
-    }
-  ]
+coffees_price = 
+{
+  "data":[
+          {
+            'black': {   
+              'size':['small','regular','large'],
+              'price': ['32','39','42']
+            }
+          },
+          {
+            'latte':{
+              'size': ['small','regular','large'],
+              'price':['32','39','42']
+            }
+          },
+          {
+            'cappuccino':{
+              'size': ['small','regular','large'],
+              'price':['32','39','42']
+            }
+          }
+   ]
+}
 ```
 
 ## Operators
