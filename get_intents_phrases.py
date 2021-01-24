@@ -13,24 +13,14 @@ def read_intents(read_file_path:str)->dict:
     return data
 
 # import data
-file_dict = read_intents(read_file_path = "/content/drive/MyDrive/Colab Notebooks/app_alias_for_housing.json")
+file_dict = read_intents(read_file_path = "/content/drive/MyDrive/Colab Notebooks/app_alias_for_housing_v2.json")["data"]
 print(type(file_dict)) # log
 file_dict # log
 
 # get intents and phrases from file_dict
 intents = ["intents, phrases"] # ready list with header
-temp_file = []
-function_phrase_extract = ('<br>'.join(list(v.keys()))) # mini-function to join phrases into 1 str
-for k,v in file_dict.items():
-  temp_file.append(k)   # put intent in temp_file
-  for k2 in v.items():
-      if (function_phrase_extract) not in intents and temp_file: # check if duplicate
-        temp_file.append(function_phrase_extract) # put phrases in temp_file
-        intents.append(','.join(list(temp_file))) # join intent and phrases
-        temp_file.clear() # clear temp_file for next intent
-      else:
-        break
-
+for k, v in file_dict.items():
+  intents.append(f"{k.replace(',','，')},{'<br>'.join(v.keys()).replace(',','，').replace('?','？')}")  
 print(type(intents)) #log
 intents #log 
 
