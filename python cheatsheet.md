@@ -12,6 +12,10 @@
     - [Logical Operator](#logical-operator)
   - [String Manipulations](#string-manipulations)
   - [if, else statments](#if-else-statments)
+  - [f-Strings](#f-strings)
+  - [Lists](#lists)
+  - [Extend (Useful for Concatenating Lists)](#extend-useful-for-concatenating-lists)
+- [next dict](#next-dict)
 
 <!-- /TOC -->
 
@@ -131,8 +135,10 @@ coffees_list = ['black', 'latte', 'cappuccino', 'espresso', 'mocha', 'flat white
 for coffee in coffees_list: 
     if coffee != order: 
         pass # pass if order not match list
+    elif coffee == order:
+      print('Our Coffee list have customer\'s perfered coffee')
     else:
-        print('Our Coffee list have customer\'s perfered coffee')
+        print('error log | order format incorrect')
 ```
 
 ## f-Strings
@@ -144,3 +150,32 @@ f"Hello, {name}. You are {age}."
 output: 'Hello, Jack. You are 1997.'
 
 ```
+
+
+## Lists
+1. lists can be diverse, each element in the list can be of a different type.
+2. lists are really list of pointers, and these pointers can point to anything.
+
+```python
+z = [1,6,4,2,5,6,6]
+print(min(z), max(z), len(z), sum(z)) # Minimum, Maximum, Length, and Sum of a list
+z.count(6) # Count Number of Times Value is in List
+z.index(6) # return first index of value
+z.index(6, 2) # start from index-2
+z.index(6,2,5) # start from index-2, end at index-5
+z.sort() # low to high / a to z
+z.sort(reverse = True) # high to low / z to a
+new_list = sorted(y) # sort without alter original list
+x.append(3) # Add to the End of List
+x.remove(10) # Remove First Occurence of Value in List
+x.pop(3) # Remove item at the index  # this function will also return the item you removed from the list  # Default is the last index
+```
+
+## Extend (Useful for Concatenating Lists)
+```python
+x.extend([4, 5]) # Extend list by appending elements (iterable)
+new_list = x+y # Concatenating Lists
+x.insert(4, [4, 5]) # insert the list [4,5] after index-4
+```
+
+# next dict
