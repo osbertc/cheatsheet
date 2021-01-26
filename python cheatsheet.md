@@ -58,28 +58,20 @@ coffees_list = ['black', 'latte', 'cappuccino', 'espresso', 'mocha', 'flat white
 Object: 
 ```python
 coffees_price = 
-{
-  "data":[
           {
             'black': {   
               'size':['small','regular','large'],
               'price': ['32','39','42']
-            }
-          },
-          {
+            },
             'latte':{
               'size': ['small','regular','large'],
               'price':['32','39','42']
-            }
-          },
-          {
+            },
             'cappuccino':{
               'size': ['small','regular','large'],
               'price':['32','39','42']
             }
           }
-   ]
-}
 ```
 
 ## Operators
@@ -179,3 +171,8 @@ x.insert(4, [4, 5]) # insert the list [4,5] after index-4
 ```
 
 # next dict
+```python
+dictionary[key] # Finding out the value of the key
+dictionary.update{} # update method, update or add more than key value pair at a time 
+
+```
